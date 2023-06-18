@@ -22,7 +22,7 @@ public class EmployeeService {
     private final Map<String, Employee> employees = new HashMap<>(MAX_SIZE);
 
     public Employee add(String firstName, String lastName) {
-        validateInput(firstName,lastName);
+        validateInput(firstName, lastName);
         if (employees.size() > MAX_SIZE) {
             throw new EmployeeStorageIsFullException();
         }
@@ -30,13 +30,13 @@ public class EmployeeService {
         if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
-        var employee = new Employee(firstName, lastName, 0, 0);
+        var employee = new Employee(firstName, lastName, 1000, 1000);
         employees.put(key, employee);
         return employee;
     }
 
     public Employee delete(String firstName, String lastName) {
-        validateInput(firstName,lastName);
+        validateInput(firstName, lastName);
         var key = (firstName + "_" + lastName).toLowerCase();
         var removed = employees.remove(key);
         if (removed == null) {
@@ -46,7 +46,8 @@ public class EmployeeService {
     }
 
     public Employee find(String firstName, String lastName) {
-        validateInput(firstName,lastName);
+        validateInput(firstName, lastName);
+
 
         var key = (firstName + "_" + lastName).toLowerCase();
         var employee = employees.get(key);
@@ -55,6 +56,8 @@ public class EmployeeService {
         }
         return employee;
     }
+
+
 
     public Collection<Employee> getEmployees() {
         return employees.values();
