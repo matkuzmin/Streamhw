@@ -49,14 +49,22 @@ public class DepartmentService {
                                 return employee;
                             }
                             return employee2;
-                        },
-                        HashMap::new
+                        }
                 ));
 
 
         return employeeService.getEmployees()
                 .stream()
                 .collect(groupingBy(Employee::getDepartment));
+    }
+
+    public double sum(int dept) {
+        return employeeService.getEmployees()
+                .stream()
+                .filter(e->e.getDepartment() == dept)
+                .mapToDouble(Employee::getSalary)
+                .sum();
+
     }
 }
 
